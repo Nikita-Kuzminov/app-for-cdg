@@ -1,6 +1,6 @@
 // memory game flip card
 
-const cards = document.querySelectorAll(".memory-card");
+const cards = document.querySelectorAll(".memory__game-card");
 
 let hasFlippedCard = false;
 let lockBoard = false;
