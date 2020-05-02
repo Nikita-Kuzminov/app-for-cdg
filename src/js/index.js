@@ -1,97 +1,139 @@
 import React from "react";
-import ReactDOM from 'react-dom'
 import '../css/style.css';
 
-// Начальный код из туториала с кретиками-ноликами
+export default class Board extends React.Component {
 
-class Square extends React.Component {
-    render() {
-        return (
-            <button className="square">
-                {this.props.value}
-            </button>
-        );
-    }
-}
-
-class Board extends React.Component {
-    renderSquare(i) {
-        return <Square value={i} />;
-    }
-
-    render() {
-        const status = 'Next player: X';
-
-        return (
-            <div>
-                <div className="status">{status}</div>
-                <div className="board-row">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
-                    {this.renderSquare(3)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(8)}
-                    {this.renderSquare(9)}
-                    {this.renderSquare(10)}
-                    {this.renderSquare(11)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(12)}
-                    {this.renderSquare(13)}
-                    {this.renderSquare(14)}
-                    {this.renderSquare(15)}
-                </div>
-            </div>
-        );
-    }
-}
-
-export default class Game extends React.Component {
-    render() {
-        return (
-            <div className="game">
-                <div className="game-board">
-                    <Board />
-                </div>
-                <div className="game-info">
-                    <div>{/* status */}</div>
-                    <ol>{/* TODO */}</ol>
-                </div>
-            </div>
-        );
-    }
-}
-
-
-// ===========================
-
-// Единственный класс, который я смог написать на React, чтобы он работал
-
-const c = React.createElement;
-
-class Card extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {flipped: false};
+        this.state = {
+            hasFlippedCard: false,
+            lockBoard: false,
+            firstCard: null,
+            secondCard: null
+        };
+    }
+
+    flipCard = (event) => {
+        if (this.state.lockBoard) return;
+        if (this === this.state.firstCard) return;
+
+        debugger
+        event.target.classList.add('flip');
+        const target = event.currentTarget;
+
+        if (!this.state.hasFlippedCard) {
+
+            debugger
+
+            this.setState({
+                hasFlippedCard: true,
+                firstCard: target
+            });
+
+            debugger
+
+            return;
+        }
+
+        debugger
+
+        this.setState(
+            {
+                secondCard: target
+            },
+            this.checkForMatch
+        );
+    }
+
+    checkForMatch() {
+        const isMatch = this.state.firstCard.dataset.framework === this.state.secondCard.dataset.framework;
+        isMatch ? this.disableCards() : this.unflipCards();
+    }
+
+    disableCards() {
+        debugger
+
+        this.state.firstCard.onclick(null);
+        this.state.secondCard.onclick(null);
+
+        this.resetBoard();
+    }
+
+    unflipCards() {
+        this.setState({
+            lockBoard: true
+        });
+
+        setTimeout(() => {
+            this.state.firstCard.classList.remove('flip');
+            this.state.secondCard.classList.remove('flip');
+
+            this.resetBoard();
+        }, 1500);
+    }
+
+    resetBoard = () => {
+        this.setState({
+            hasFlippedCard: false,
+            lockBoard: false,
+            firstCard: null,
+            secondCard: null
+        });
+    }
+
+    renderCard(src, dataFramework) {
+        return <Card imgSrc={src}
+                     imgAlt={dataFramework}
+                     flipCard={this.flipCard}
+                     dataFramework={dataFramework}/>;
+    }
+
+    shuffleCards() {
+        const cards = React.Children.toArray(this.props.children);
+        debugger
+        console.log(cards)
+        // cards.forEach(card => {
+        //     let randomPos = Math.floor(Math.random() * 12);
+        //     card.style.order = randomPos;
+        // });
+    }
+
+    componentDidMount() {
+        this.shuffleCards();
     }
 
     render() {
-        if (this.state.liked) {
-            flipCard();
-        }
+        return (
+            <section className="memory-game">
+                {this.renderCard('img/react.svg', 'React')}
+                {this.renderCard('img/react.svg', 'React')}
+                {this.renderCard('img/angular.svg', 'Angular')}
+                {this.renderCard('img/angular.svg', 'Angular')}
+                {this.renderCard('img/ember.svg', 'Ember')}
+                {this.renderCard('img/ember.svg', 'Ember')}
+                {this.renderCard('img/vue.svg', 'Vue')}
+                {this.renderCard('img/vue.svg', 'Vue')}
+                {this.renderCard('img/backbone.svg', 'Backbone')}
+                {this.renderCard('img/backbone.svg', 'Backbone')}
+                {this.renderCard('img/aurelia.svg', 'Aurelia')}
+                {this.renderCard('img/aurelia.svg', 'Aurelia')}
+                {this.renderCard('img/octocat.svg', 'Octocat')}
+                {this.renderCard('img/octocat.svg', 'Octocat')}
+                {this.renderCard('img/html.svg', 'Html')}
+                {this.renderCard('img/html.svg', 'Html')}
+            </section>
+        );
+    }
+}
 
-        return c(
-            "button",
-            {onClick: () => this.setState({flipped: true})},
-            "Like"
+class Card extends React.Component {
+
+    render() {
+        return (
+            <div className="memory-card" onClick={this.props.flipCard} data-framework={this.props.dataFramework}>
+                <img src={this.props.imgSrc} alt={this.props.imgAlt} className="front-face"/>
+                <img src="img/js-badge.svg" alt="Memory card" className="back-face"/>
+            </div>
         );
     }
 }
@@ -99,7 +141,7 @@ class Card extends React.Component {
 
 // Все работающие функции до добавления реакта
 
-const cards = document.querySelectorAll(".memory__game-card");
+const cards = document.querySelectorAll(".memory-card");
 
 let hasFlippedCard = false;
 let lockBoard = false;
@@ -123,7 +165,7 @@ function flipCard() {
 }
 
 function checkForMatch() {
-    let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
+    const isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
     isMatch ? disableCards() : unflipCards();
 }
 
