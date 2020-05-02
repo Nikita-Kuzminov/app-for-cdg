@@ -54,7 +54,7 @@ class Board extends React.Component {
     }
 }
 
-class Game extends React.Component {
+export default class Game extends React.Component {
     render() {
         return (
             <div className="game">
@@ -71,20 +71,13 @@ class Game extends React.Component {
 }
 
 
-
-ReactDOM.render(
-    <Game />,
-    document.getElementById('root')
-);
-
-
 // ===========================
 
 // Единственный класс, который я смог написать на React, чтобы он работал
-/*
+
 const c = React.createElement;
 
-class Cards extends React.Component {
+class Card extends React.Component {
     constructor(props) {
         super(props);
         this.state = {flipped: false};
@@ -103,8 +96,6 @@ class Cards extends React.Component {
     }
 }
 
-const domContainer = document.querySelector("#Card_container");
-ReactDOM.render(c(Card), domContainer);
 
 // Все работающие функции до добавления реакта
 
@@ -167,11 +158,3 @@ function resetBoard() {
 })();
 
 cards.forEach(card => card.addEventListener("click", flipCard));
-
-// ========================================
-
-ReactDOM.render(
-    <Game/>,
-    document.getElementById('root')
-)
- */
