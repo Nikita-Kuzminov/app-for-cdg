@@ -1,6 +1,45 @@
 import React from 'react';
 import './App.css';
-import Board from './js/index.js';
+
+class Card extends React.Component {
+    render() {
+        return (
+            <div className="Card">
+
+            </div>
+        );
+    }
+}
+
+class Board extends React.Component {
+    render() {
+        return (
+            <div>
+                <Card img={this.props.imageCard()}/>
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+            </div>
+        );
+    }
+
+    imageCard(image) {
+        return <img src="../public/img/angular.svg" alt="Angular"/>
+    }
+}
+
 
 function App() {
   return (
