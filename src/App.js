@@ -4,7 +4,7 @@ import './App.css';
 class Card extends React.Component {
     render() {
         return (
-            <div className="Card">
+            <div className="card">
 
             </div>
         );
@@ -14,8 +14,8 @@ class Card extends React.Component {
 class Board extends React.Component {
     render() {
         return (
-            <div>
-                <Card img={this.props.imageCard()}/>
+            <div className="board">
+                <Card img={this.props.imageCard}/>
                 <Card />
                 <Card />
                 <Card />
@@ -35,7 +35,7 @@ class Board extends React.Component {
         );
     }
 
-    imageCard(image) {
+    imageCard() {
         return <img src="../public/img/angular.svg" alt="Angular"/>
     }
 }
