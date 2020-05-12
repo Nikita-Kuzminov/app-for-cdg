@@ -37,10 +37,11 @@
 /*  }*/
 /*}*/
 
-
+body {
+  background-color: #058099;
+}
 
 .card {
-  background-color: blue;
   width: 100px;
   height: 150px;
   margin-right: 100px;
@@ -60,7 +61,7 @@
 }
 
 img {
-  width: 500px;
-  height: 700px;
+  width: 100px;
+  height: 300px;
   z-index: 3;
 }

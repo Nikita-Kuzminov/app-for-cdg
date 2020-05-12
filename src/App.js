@@ -13,30 +13,21 @@ class Card extends React.Component {
 
 class Board extends React.Component {
     render() {
+        const cards = [];
+
+        for (let i = 0; i <= 15; i++) {
+            cards.push(<Card img={this.imageCard} />)
+        }
+
         return (
             <div className="board">
-                <Card img={this.imageCard}/>
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                {cards}
             </div>
         );
     }
 
     imageCard() {
-        return <img src="../public/img/angular.svg" alt="Angular"/>
+        return <img src="img/angular.svg" alt="Angular"/>
     }
 }
 
