@@ -5,23 +5,24 @@ class Card extends React.Component {
     render() {
         return (
             <div className="card">
-                {this.props.img(this.props.imgSrc, this.props.Name)}
+                {this.props.cardImage(this.props.imgSrc, this.props.imgName)}
             </div>
         );
     }
 }
 
+
 class Board extends React.Component {
     render() {
         const cards = [];
-        const equalCardsNumber = 2;
-        const imageContext = require.context('../public/img', false, /\.(png|jpe?g|svg)$/);
+        const equalCardsNumber = 1;
+        const imageContext = require.context('../public/img/front', false, /\.(png|jpe?g|svg)$/);
         const images = this.importAllImages(imageContext);
 
         for (const [imgName, imgSrc] of Object.entries(images)) {
             for (let i = 0; i <= equalCardsNumber; i++) {
                 cards.push(
-                    <Card img={this.imageCard()} imgName={imgName} imgSrc={imgSrc} />
+                    <Card cardImage={this.imageCard} imgSrc={imgSrc} imgName={imgName} />
                 );
             }
         }
@@ -43,7 +44,7 @@ class Board extends React.Component {
         return images;
     }
 
-
+    
 }
 
 
