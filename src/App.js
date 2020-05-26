@@ -62,16 +62,16 @@ class Board extends React.Component {
     setNumberOfFlippedCards = () => {
         const numberOfFlippedCards = this.state.numberOfFlippedCards;
         this.setState({ numberOfFlippedCards: numberOfFlippedCards + 1 });
-        console.log(this.state.numberOfFlippedCards);
-    };
+        console.log(this.state.numberOfFlippedCards)
+    }
 
     setFirstFlippedCard = (alt) => {
         this.setState({ firstFlippedCard: alt });
-    };
+    }
 
     setSecondFlippedCard = (alt) => {
         this.setState({ secondFlippedCard: alt });
-    };
+    }
 
     render() {
         const cards = [];
