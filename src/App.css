@@ -67,3 +67,7 @@ img {
   height: 100px;
   margin-top: 10px;
 }
+
+.img-hidden {
+  display: none;
+}
